@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>marronMerge - PDF Merger Tool</title>
+  <link rel="stylesheet" href="styles/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-content">
+        <h1 class="logo">🔥 marronMerge</h1>
+        <p class="subtitle">Professional PDF Merger & Manager</p>
+      </div>
+    </header>
+
+    <main class="main-content">
+      <!-- Upload Section -->
+      <section class="panel upload-panel">
+        <h2>Step 1: Upload PDFs</h2>
+        <div class="upload-area" id="uploadArea">
+          <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="17 8 12 3 7 8"></polyline>
+            <line x1="12" y1="3" x2="12" y2="15"></line>
+          </svg>
+          <p class="upload-text">Drag PDFs here or click to select</p>
+          <input 
+            type="file" 
+            id="fileInput" 
+            multiple 
+            accept=".pdf" 
+            hidden
+          >
+        </div>
+        <div id="uploadStatus" class="status-message"></div>
+      </section>
+
+      <div class="content-wrapper">
+        <!-- Uploaded Files List -->
+        <section class="panel files-panel">
+          <h2>Uploaded Files</h2>
+          <div id="filesList" class="files-list">
+            <p class="empty-state">No files uploaded yet</p>
+          </div>
+        </section>
+
+        <!-- Page Manager -->
+        <section class="panel pages-panel">
+          <h2>Page Manager</h2>
+          <div class="page-controls">
+            <button id="detectBlankBtn" class="btn btn-secondary" title="Detect blank and black pages">
+              🔍 Detect Blank Pages
+            </button>
+            <button id="clearAllBtn" class="btn btn-danger" title="Clear all selections">
+              🗑️ Clear All
+            </button>
+          </div>
+          
+          <div id="pagesList" class="pages-list">
+            <p class="empty-state">Upload PDFs to see pages</p>
+          </div>
+          
+          <div id="blankPagesAlert" class="alert alert-info" style="display: none;">
+            <strong>📋 Blank/Black Pages Detected:</strong>
+            <div id="blankPagesList"></div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Merge & Export Section -->
+      <section class="panel merge-panel">
+        <h2>Step 2: Merge & Export</h2>
+        <div class="merge-controls">
+          <div class="form-group">
+            <label for="outputFileName">Output Filename:</label>
+            <input 
+              type="text" 
+              id="outputFileName" 
+              value="merged.pdf" 
+              placeholder="merged.pdf"
+            >
+          </div>
+          <button id="mergeBtn" class="btn btn-primary btn-large">
+            ✨ Merge & Download PDF
+          </button>
+        </div>
+        <div id="mergeStatus" class="status-message"></div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; <span id="currentYear"></span> marronMerge. Build with ❤️ for PDF lovers. By <a style="text-decoration: none; color:white; font-weight: 600;" href="https://github.com/MarronMw" target="_blank">Marron Ndege</a></p>
+    </footer>
+  </div>
+
+  <!-- Page Preview Modal -->
+  <div id="previewModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div class="modal-body">
+        <img id="previewImage" src="" alt="Page Preview">
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div id="spinner" class="spinner" style="display: none;">
+    <div class="spinner-circle"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="scripts/upload.js"></script>
+  <script src="scripts/preview.js"></script>
+  <script src="scripts/pageManager.js"></script>
+  <script src="scripts/merge.js"></script>
+  <script src="scripts/app.js"></script>
+ 
+</body>
+</html>

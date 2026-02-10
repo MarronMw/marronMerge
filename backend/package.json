@@ -1,0 +1,25 @@
+{
+  "name": "marronmerge-backend",
+  "version": "1.0.0",
+  "description": "Backend for marronMerge - PDF manipulation tool",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "keywords": [
+    "pdf",
+    "merge",
+    "manipulation"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^3.11.174",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3"
+  }
+}
