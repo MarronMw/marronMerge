@@ -3,18 +3,28 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const PDFProcessor = require('../services/pdfProcessor');
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const uploadDir = path.join(__dirname, '../../uploads');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
-      console.log(`✅ Created uploads directory: ${uploadDir}`);
+    const defaultLocal = path.join(__dirname, '../../uploads');
+    // On Vercel/serverless the filesystem is readonly except for a tmp dir.
+    // Use /tmp when on Vercel (process.env.VERCEL is set) or when UPLOAD_DIR is provided.
+    const uploadDir = process.env.UPLOAD_DIR || (process.env.VERCEL ? path.join(os.tmpdir(), 'uploads') : defaultLocal);
+
+    try {
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true });
+        console.log(`✅ Created uploads directory: ${uploadDir}`);
+      }
+      console.log(`📁 Storing file in: ${uploadDir}`);
+      cb(null, uploadDir);
+    } catch (err) {
+      console.error('❌ Failed to create/upload to directory:', uploadDir, err);
+      cb(err);
     }
-    console.log(`📁 Storing file in: ${uploadDir}`);
-    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     // Create unique filename with timestamp
