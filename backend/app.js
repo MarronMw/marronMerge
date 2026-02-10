@@ -56,9 +56,10 @@ requiredDirs.forEach(dir => {
   }
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`
+// Start server (only when run directly)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`
 ╔════════════════════════════════════╗
 ║      marronMerge Backend Server    ║
 ╠════════════════════════════════════╣
@@ -67,6 +68,7 @@ app.listen(PORT, () => {
 ║  API: http://localhost:${PORT}/api/pdf/health
 ╚════════════════════════════════════╝
   `);
-});
+  });
+}
 
 module.exports = app;
