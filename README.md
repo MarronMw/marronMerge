@@ -530,4 +530,4 @@ For issues or questions:
 **Built with ❤️ for PDF enthusiasts**
 
 Version: 1.0.0  
-Last Updated: February 10, 2024
+Last Updated: February 10, 2026
